@@ -292,15 +292,38 @@ pre[data-line] .line-highlight[data-end]:after {
 <p>For now, you can download them to anywhere you like (Desktop, P: drive) - as long as you remember where you left them!</p>
 <h2 class="mume-header" id="what-is-a-relational-database">What is a relational database?</h2>
 
-<p>A relational database is a collection of data items organised as a set of tables. Relationships can be defined between the data in one table and the data in another or many other tables. The relational database system will provide mechanisms by which you can query the data in the tables, re-assemble the data in various ways without altering the data in the actual tables.</p>
-<p>This querying is usually done using SQL (Structured Query Language). SQL allows a great many queries to be constructed from the use of only a few keywords.</p>
-<p>You could have a relational database with only one table, but then you would&#x2019;t have any relationships and it would be more like a spreadsheet.</p>
-<p>Databases are designed to allow efficient querying against very large tables, more than the 1M rows allowed in an Excel spreadsheet.</p>
+<p>A relational database is a collection of data items organised as a set of tables. Relationships can be defined between the data in one table and the data in another or many other tables. The relational database system will provide mechanisms by which you can query the data in the tables, re-assemble the data in various ways without altering the data in the actual tables.<br>
+This querying is usually done using SQL (Structured Query Language). SQL allows a great many queries to be constructed from the use of only a few keywords.<br>
+You could have a relational database with only one table, but then you would&#x2019;t have any relationships and it would be more like a spreadsheet.<br>
+Databases are designed to allow efficient querying against very large tables, more than the 1M rows allowed in an Excel spreadsheet.</p>
 <h2 class="mume-header" id="what-is-a-table">What is a table?</h2>
 
-<p>As were have noted above, a single table is very much like a spreadsheet. It has rows and it has columns. A row represents a single observation and the columns represents the various variables contained within that observation.</p>
-<p>Often one or more columns in a row will be designated as a &apos;primary key&apos; This column or combination of columns can be used to uniquely identify a specific row in the table.</p>
-<p>The columns typically have a name associated with them indicating the variable name. A column always represents the same variable for each row contained in the table. Because of this the data in each column will always be of the same <em>type</em>, such as an Integer or Text, of values for all of the rows in the table. Datatypes are discussed in the next section.</p>
+<p>As were have noted above, a single table is very much like a spreadsheet. It has rows and it has columns. A row represents a single observation and the columns represents the various variables contained within that observation.<br>
+Often one or more columns in a row will be designated as a &apos;primary key&apos; This column or combination of columns can be used to uniquely identify a specific row in the table.<br>
+The columns typically have a name associated with them indicating the variable name. A column always represents the same variable for each row contained in the table. Because of this the data in each column will always be of the same <em>type</em>, such as an Integer or Text, of values for all of the rows in the table. Datatypes are discussed in the next section.</p>
+<h2 class="mume-header" id="other-types-of-databases">Other types of databases</h2>
+
+<p>Relational databases are not the only types of databases. You can broadly categorize them into two types SQL databases and NoSQL databases which broadly correspond to databases which use SQL to query the data and those which don&apos;t. But this distinction is becoming increasing blurred and even within these two categories there are different database types based on how the data is stored or organsised at a low level. I.e. a level at which the the person writing the query doesn&apos;t necessarily need to be aware of, but may allow them to write more efficient queries if they do.</p>
+<p>The website <a href="https://db-engines.com/en/ranking">Database table</a> provide a monthly ranking of popular database systems and also indicates their type.</p>
+<p>A snapshot from the site is given below.</p>
+<p><img src="fig/database_table.jpg" alt="Database Table"></p>
+<p>You can seee that the most popular databases are all relational databases. Oracle and MS SQL Server are both commericial offerings and MySQL, is open source. We will be using MySQL in this workshop.</p>
+<h2 class="mume-header" id="exercise">Exercise</h2>
+
+<p>Using the table at <a href="https://db-engines.com/en/ranking">https://db-engines.com/en/ranking</a> , int he Database Model column look at some of the other types of databases mentioned. Follow the links to read what makes them different from each other.</p>
+<p>Is the relational database model best for your data?</p>
+<p>One term not used in the table is &apos;columnar&apos; (this is different from &apos;Wide Column&apos; ). Use the internet to find out what distinguishes them from simple Relational databases.</p>
+<h2 class="mume-header" id="schema">Schema</h2>
+
+<p>Schema and Schemaless are another broad way of distinguishing between SQL and NoSQL database systems.</p>
+<p>A Schema is a description of the various components in a table or database. Using our spreadsheet as a table analogy, the schema would consist of the column names and the type of data in the column. Our analogy breaks down a little here as in a spreadsheet, although you can specifiy a data type for a column you don&apos;t have to stick to it. In a relational database table you <strong>must</strong> specify the data type for a column, and once done the database engine will ensure that you stick to it. The Schema can contain much more descriptive data about the tables and columns but we don&apos;t need to worry about that for now.</p>
+<h2 class="mume-header" id="schema-on-write">Schema on write</h2>
+
+<p>The fact that the database engine will enforce the correct data type for a column means that if you try to insert a value of the wrong type, then an error will occur. And a consequence of this is that the database engine must know the Schema of a table before it will allow you to place any data in it. This is called &apos;Schema on write&apos;. Most (there was a time when all) relational database systems are &apos;Schema on write&apos;</p>
+<h2 class="mume-header" id="schemaless-and-schema-on-read">Schemaless and Schema on read</h2>
+
+<p>The NoSQL databases, particularly Document stores, tend to be Schemaless, as the name suggests there is no pre-defined  Schema for the data. This works because each Document in the data store effectively provides its own schema as part of the document in a JSON (Javascript Object Notation) format.</p>
+<p>This also explains &apos;Schema on read&apos; as when a document is read, you automatically read the associated Schema information. It also means that each document can have its own, possibly different schema from other documents (rows) in the collection (table)</p>
 <h2 class="mume-header" id="what-is-a-data-type">What is a data type?</h2>
 
 <p>A data type is a description of the kind of data in a table column. Each database system recognises its own set of datatypes, although some are common to many.<br>
@@ -1392,7 +1415,7 @@ i.e sum the &apos;D02_total_plot&apos; column.</li>
 
 <h2 class="mume-header" id="the-like-operator">The <code>like</code> operator</h2>
 
-<h2 class="mume-header" id="exercise">Exercise</h2>
+<h2 class="mume-header" id="exercise-1">Exercise</h2>
 
 <p>Run the following two queries and from the results decide the signifance of the &apos;%&apos; and &apos;_&apos; characters and in general what the <code>like</code> operator does.</p>
 <pre data-role="codeBlock" data-info="sql" class="language-sql"><span class="token comment">-- 1</span>
@@ -1426,7 +1449,7 @@ The <code>like</code> operator itself allows you to perform these simple pattern
 <span class="token keyword">where</span> A09_village  <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token keyword">Select</span> <span class="token operator">*</span> <span class="token keyword">from</span> villages<span class="token punctuation">)</span>
 <span class="token punctuation">;</span>
 </pre><p>In the nested select you should avoid using  &apos;*&apos;. I can get away with it here because the <code>villages</code> table only has the one column.</p>
-<h2 class="mume-header" id="exercise-1">Exercise</h2>
+<h2 class="mume-header" id="exercise-2">Exercise</h2>
 
 <ol>
 <li>It is likely that we would be equally interested in the rows which don&apos;t seem to have valid &apos;village&apos; names. Can you very slightly change the query above to produce this list?</li>
@@ -1466,7 +1489,7 @@ The <code>like</code> operator itself allows you to perform these simple pattern
 <span class="token keyword">join</span> farms <span class="token keyword">as</span> b
 <span class="token keyword">on</span> a<span class="token punctuation">.</span>A09_real_villages <span class="token operator">=</span> b<span class="token punctuation">.</span>A09_village
 <span class="token punctuation">;</span>
-</pre><h2 class="mume-header" id="exercise-2">Exercise</h2>
+</pre><h2 class="mume-header" id="exercise-3">Exercise</h2>
 
 <ol>
 <li>Extract the nested select query from the above, run it and make sure you understand what it is doing.</li>
@@ -1498,7 +1521,7 @@ The <code>like</code> operator itself allows you to perform these simple pattern
        <span class="token keyword">Order</span> <span class="token keyword">By</span> A06_province<span class="token punctuation">,</span> A07_district<span class="token punctuation">,</span> A08_ward<span class="token punctuation">;</span>
 </pre><p><img src="./fig/windows_sum_over.png" alt="windows sum over"></p>
 <p>You can see from the output that there is a row returned for each row of the <code>farms_count</code> table along with the calculated aggregate values.</p>
-<h2 class="mume-header" id="exercise-3">Exercise</h2>
+<h2 class="mume-header" id="exercise-4">Exercise</h2>
 
 <p>Amend the query above to include counts for the number of farms in <code>A07_district</code> and <code>A06_province</code>.</p>
 <details><summary><b>Solution</b>  - click me</summary>
